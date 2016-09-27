@@ -1,5 +1,5 @@
 # Project: Open Data NYC - an RShiny app development project
-### [Project Description](doc/Project1_desc.md)
+### [Project Description](doc/project2_desc.md)
 
 Term: Fall 2016
 
