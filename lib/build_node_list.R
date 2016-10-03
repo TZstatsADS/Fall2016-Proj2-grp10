@@ -3,7 +3,7 @@
 
 library(data.table)
 
-blocks = fread('../data/street_blocks.csv')
+blocks = fread('../data/street blocks.csv')
 blocks = blocks[!duplicated(blocks$PHYSICALID),]
 
 nodes_from_seg = function(seg){ # extract numeric coordinates of all nodes in a 'the_geom' segment
