@@ -3,7 +3,7 @@
 
 Term: Fall 2016
 
-+ Team #
++ Team 10
 + Projec title: Lorem ipsum dolor sit amet
 + Team members
 	+ Li, Rong
