@@ -1,5 +1,7 @@
 
 # Create list (dataframe) of all nodes in map, with their lon-lat coordinates and their associated segment
+# Attention: these include points that are not real nodes of the network, but simply intermediary points used 
+# for plotting street segments that are not straight
 
 library(data.table)
 
