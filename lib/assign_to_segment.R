@@ -17,7 +17,8 @@ assign_to_segment = function(point, node_list){
     x2 = line[3]; y2 = line[4]
     px = x2-x1
     py = y2-y1
-    u = ((x0 - x1)*px + (y0 - y1)*py) / (px^2 + py^2)
+    if(px^2 + py^2 == 0)  u = Inf
+    else u = ((x0 - x1)*px + (y0 - y1)*py) / (px^2 + py^2)
     if(u>1) u = 1
     else if(u<0) u = 0
     x = x1 + u*px
