@@ -31,18 +31,18 @@ blocks = mutate(blocks, slope = abs(start_elev - end_elev)/SHAPE_Leng)
 write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
 
 
-# # for checking that it works:
-# library(leaflet).
+# for checking that it works:
+# library(leaflet)
 # 
 # pal = colorRampPalette(c("black", "red"))
 # colors = pal(nrow(blocks))
 # 
-# points = sample(nrow(blocks))
+# segs = sample(nrow(blocks))
 # 
-# m <- leaflet() %>% addTiles() 
-# for(i in points){
+# m <- leaflet() %>% addTiles()
+# for(i in segs){
 #   m = addPolylines(m, lng = c(blocks$start_lon[i], blocks$end_lon[i]),
-#                       lat = c(blocks$start_lat[i], blocks$end_lat[i]), 
+#                       lat = c(blocks$start_lat[i], blocks$end_lat[i]),
 #                       color = colors[rank(blocks$slope)[i]],
 #                       opacity = 1
 #                    )
