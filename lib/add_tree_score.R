@@ -18,37 +18,24 @@ trees = trees[in.out(manhattan_outline, trees),] # select manhattan trees only
 node_list = filter(node_list, segment_id %in% blocks$PHYSICALID) # manhattan nodes only
 
 
-ptm <- proc.time()
-a = apply(trees[1:100,], 1, FUN=assign_to_segment, node_list)
-proc.time() - ptm  
-  
-# add lon and lat of segment end points as columns:
-trees = mutate(trees, 
-                start_lon = sapply(the_geom, get_end_nodes,'start_lon'),
-                start_lat = sapply(the_geom, get_end_nodes,'start_lat'),
-                end_lon = sapply(the_geom, get_end_nodes,'end_lon'),
-                end_lat = sapply(the_geom, get_end_nodes,'end_lat') )
+# assign a segment ID to each tree:
+segments_trees = apply(trees, 1, FUN=assign_to_segment, node_list)
 
+# count trees per segment:
+trees_per_seg = data.frame(table(segments_trees))
 
+trees_per_seg = trees_per_seg %>%
+                  select(seg_ID = segments_trees, tree_dens = Freq) %>%
+                  mutate(seg_ID = as.integer(as.character(seg_ID)))
 
-# add unique IDs to segment end points based on their coords rounded to the 5th decimal:
-blocks = blocks %>% 
-          mutate(start_ID = paste(as.character(round(start_lon, 5)), as.character(round(start_lat, 5)))) %>% 
-          mutate(end_ID = paste(as.character(round(end_lon, 5)), as.character(round(end_lat, 5))))
+blocks = blocks %>%
+          left_join(trees_per_seg, by=c('PHYSICALID'='seg_ID')) %>%
+          mutate(tree_dens = tree_dens/SHAPE_Leng)
 
+blocks$tree_dens[is.na(blocks$tree_dens)] = 0 # replace NAs with 0s
 
 write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
 
-
-# # for checking that it works:
-# library(leaflet)
-# block = filter(blocks, PHYSICALID==3188) # enter any block ID here
-# 
-# m <- leaflet() %>%
-#       addTiles() %>%
-#       addMarkers(lng=block$start_lon , lat=block$start_lat) %>%
-#       addMarkers(lng=block$end_lon , lat=block$end_lat)
-# m
 
 
 
