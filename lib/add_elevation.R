@@ -8,7 +8,10 @@ library(dplyr)
 
 blocks = fread('../output/blocks_Manhattan.csv')
 elevation = fread('../data/Manhattan_Elevation.csv')
-elevation = distinct(elevation, LONG, ALT, .keep_all = TRUE)
+
+elevation = elevation %>%
+            filter(FEAT_CODE==3000) %>% # ground elevation only
+            distinct(LONG, ALT, .keep_all = TRUE)
 
 find_closest_elev = function(point, samples){
   # Input:  point: in the form c(lon, lat)
