@@ -5,14 +5,16 @@ library(data.table)
 library(dplyr)
 library(mgcv)
 
-restrooms = fread('../data/toilet_location.csv')
+restrooms = fread('../data/publictoilet.csv')
 blocks = fread('../output/blocks_Manhattan.csv')
 node_list = fread('../output/node_list.csv')
 manhattan_outline = fread('../data/Boundary.csv')
 source('../lib/assign_to_segment.R')
 
 restrooms = restrooms %>%
-              select(LON, LAT) %>%
+              select(LNG, LAT) %>%
+              mutate(LNG = as.numeric(LNG), LAT = as.numeric(LAT)) %>%
+              filter( !is.na(LNG) & !is.na(LAT)) %>%
               as.matrix()
 manhattan_outline = as.matrix(manhattan_outline)
 restrooms = restrooms[in.out(manhattan_outline, restrooms),] # select manhattan restrooms only
@@ -33,10 +35,8 @@ blocks = left_join(blocks, restrooms_per_seg, by=c('PHYSICALID'='seg_ID'))
 
 blocks$n_restrooms[is.na(blocks$n_restrooms)] = 0 # replace NAs with 0s
 
-#blocks$n_restrooms[blocks$PHYSICALID %in% c(132284, 3763)] = 2 # correct numbers that don't make sense based on map
 
-
-write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
+#write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
 
 
 # for checking that it works: restrooms in red, assigned segments in blue
