@@ -36,7 +36,7 @@ blocks = left_join(blocks, restrooms_per_seg, by=c('PHYSICALID'='seg_ID'))
 blocks$n_restrooms[is.na(blocks$n_restrooms)] = 0 # replace NAs with 0s
 
 
-#write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
+write.csv(blocks, file = '../output/blocks_Manhattan.csv', row.names = FALSE)
 
 
 # for checking that it works: restrooms in red, assigned segments in blue
