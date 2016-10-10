@@ -3,9 +3,11 @@ library(geosphere)
 library(dplyr)
 library(igraph)
 library(ggmap)
-load("Nodes.RData")
-load("Segments.RData")
-source("Main Function.R")
+#load("./Nodes.RData")
+#load("./Segments.RData")
+#source("Main Algo Function.R")
+
+#TP:Tree SP:Slope FP:Fountain RP:Restrooms 
 TP = 3
 SP = 5
 RP = 2
@@ -13,7 +15,7 @@ FP = 3
 Start.Coord = geocode("Columbia University, New York")
 Distance = 5
 End.Coord =  NA
-Find.Path(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord)
+
 
 Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord){
   #Set StartID and EndID
@@ -24,6 +26,7 @@ Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord){
     End.Coord = GetNodes(Nodes,Start.Coord,Distance)
     End.ID = End.Coord$ID
   }
+
   #Find Path
   Segments = Segments.Score(Segments,TP,SP,FP,RP)
   
@@ -34,3 +37,5 @@ Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord){
   Route.Score = round(sum(1/Edge$Distance))/dim(Edge)[1]
   return(list(Intersection = Route, Edge = Edge,Length = Length, Score = Route.Score))
 }
+
+Find.Path(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord)
