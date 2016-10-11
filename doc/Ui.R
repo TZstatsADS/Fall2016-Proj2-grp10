@@ -54,7 +54,7 @@ shinyUI(
                              
                              
                              h5("Return using original path."),
-                             checkboxInput("return", label = "Yes"),
+                             checkboxInput("return", label = "No"),
                              
                              #changed layout to match input of code 
                              sliderInput("tree", "Tree:", min=0, max=10, value=5),
