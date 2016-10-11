@@ -6,6 +6,10 @@ library(ggplot2)
 library(RCurl)
 library(RJSONIO)
 library(plyr)
+load("Nodes.RData")
+load("Segments.RData")
+source("Main Algo Function.R")
+source("Main Algo Code.R")
 
 
 shinyServer(function(input, output) {
@@ -41,10 +45,12 @@ shinyServer(function(input, output) {
     iconUrl = "https://www.adiumxtras.com/images/pictures/super_mario_3d_icons_1_35820_8077_image_12514.png",
     iconWidth = 25, iconHeight = 40
   )
+  
   end = makeIcon(
     iconUrl = "https://s-media-cache-ak0.pinimg.com/originals/f9/0b/32/f90b326586d33de6a5ff78ff2605df9c.jpg",
     iconWidth = 25, iconHeight = 40
   )
+  
   # Find point from input
   points_start <- eventReactive(input$start,{
     address <- input$start
@@ -52,22 +58,45 @@ shinyServer(function(input, output) {
     names(locations) <- c("lat", "lon", "location_type", "formatted")
     return (cbind(locations$lon,locations$lat))
   })
+  
   points_end <- eventReactive(input$stop,{
     address <- input$stop
     locations <- ldply(address,function(x) geoCode(x))
     names(locations) <- c("lat", "lon", "location_type", "formatted")
     return (cbind(locations$lon,locations$lat))
   })
+  
+  #Buttom for calculation
+  output$action=reactive({
+    #TP:Tree SP:Slope FP:Fountain RP:Restrooms 
+    #Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord
+    Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)
+    #Catherine: this is partly done, I need to import the dataset for the 
+  })
+  
+  # When user clicks on segment, information will appear
+  observe({
+    leafletProxy("map") %>% clearGroup("overlays")
+    event <- input$map_marker_click
+    if (is.null(event))
+      return()
+    isolate({
+      show()(event$Length, event$Slope, event$Tree,event$Foutain)
+    })
+  })
+  
   # Create map
   output$map <- renderLeaflet({
     leaflet() %>%
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=13 ) %>%
-      addProviderTiles("Stamen.Toner")%>%
+      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
+     
       addMarkers(data = points_start(),icon=start) %>%
-      addMarkers(data = points_end(),icon=end)
+      addMarkers(data = points_end(),icon=end) 
+
   })
+  
 }
 )
