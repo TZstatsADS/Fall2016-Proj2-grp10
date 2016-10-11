@@ -57,16 +57,21 @@ shinyUI(
                              checkboxInput("return", label = "No"),
                              
                              #changed layout to match input of code 
-                             sliderInput("tree", "Tree:", min=0, max=10, value=5),
-                             sliderInput("slope", label = "Slope", min=0, max=10, value=5),
-                             sliderInput("foutain", label = "Drinking Foutain: ", min=0, max=10, value=5),
-                             sliderInput("restroom", label = "Restroom", min=0, max=10, value=5),
-                             sliderInput("width", label = "Sidewalk Width", min = 0, max = 10, value = 5),
+                             numericInput("tree", "Tree:", min=0, max=10, value=5),
+                             numericInput("slope", label = "Slope", min=0, max=10, value=5),
+                             numericInput("foutain", label = "Drinking Foutain: ", min=0, max=10, value=5),
+                             numericInput("restroom", label = "Restroom", min=0, max=10, value=5),
+                             numericInput("width", label = "Sidewalk Width", min = 0, max = 10, value = 5),
                              
                              submitButton("Update")
                              # if we need to add some initial plot here
 
                ),
+               
+               absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+                             draggable = TRUE, top = 60, left = "auto", right = "auto", bottom = "auto",
+                             width = 330, height = "auto"
+               )
                ## where our data come from and copyright?
                tags$div(id="cite",
                         'Data compiled for ', tags$em('New York Opensource Data'), ' until 2016'
