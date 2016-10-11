@@ -8,11 +8,11 @@ library(RJSONIO)
 library(plyr)
 library(ggplot2)
 library(plotly)
-load("~/Desktop/Fall2016-Proj2-grp10-master/output/Nodes.RData")
-load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
-load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
-source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Function.R")
-source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Code.R")
+#load("~/Desktop/Fall2016-Proj2-grp10-master/output/Nodes.RData")
+#load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
+#load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
+#source("~/Desktop/Fall2016-Proj2-grp10-master/doc/Main_Algo_Function.R")
+#source("~/Desktop/Fall2016-Proj2-grp10-master/doc/Main_Algo_Code.R")
 
 
 shinyServer(function(input, output) {
@@ -68,13 +68,13 @@ shinyServer(function(input, output) {
       event <- Find.Path(input$start,input$tree,input$slope,
                          input$foutain,input$restroom,input$width,Nodes,Segments,
                          Original.Segments,
-                         NA,input$stop,Run.Back)
+                         NA,input$stop,input$return)
     }else{
       leafletProxy("map") %>% clearShapes()
       event <- Find.Path(input$start,input$tree,input$slope,
                          input$foutain,input$restroom,input$width,Nodes,Segments,
                          Original.Segments,
-                         input$distance,NA,Run.Back)
+                         input$distance,NA,input$return)
     }
 
     isolate({
