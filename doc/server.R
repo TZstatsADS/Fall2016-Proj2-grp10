@@ -37,7 +37,6 @@ shinyServer(function(input, output) {
       location_type <- x$results[[1]]$geometry$location_type
       formatted_address <- x$results[[1]]$formatted_address
       return(c(lat, lng, location_type, formatted_address))
-      Sys.sleep(0.5)
     } else {
       return(c(NA,NA,NA,NA))
     }
@@ -54,6 +53,36 @@ shinyServer(function(input, output) {
     iconWidth = 25, iconHeight = 40
   )
   
+  showRoutine <- function(lng,lat) {
+    leafletProxy("map") %>% addPolylines(lng, lat)
+  }
+
+  # output$test<-renderPrint({
+  #   str(input$start)
+  # })
+  #Update button
+  observe({
+
+    if(input$end_dis == 1){
+      leafletProxy("map") %>% clearShapes()
+      event <- Find.Path(input$start,input$tree,input$slope,
+                         input$foutain,input$restroom,input$width,Nodes,Segments,
+                         Original.Segments,
+                         NA,input$stop,Run.Back)
+    }else{
+      leafletProxy("map") %>% clearShapes()
+      event <- Find.Path(input$start,input$tree,input$slope,
+                         input$foutain,input$restroom,input$width,Nodes,Segments,
+                         Original.Segments,
+                         input$distance,NA,Run.Back)
+    }
+
+    isolate({
+      showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
+                  lat=as.vector(event$Intersection.Go$Latitude))
+    })
+  })
+
   # Find point from input
   points_start <- eventReactive(input$start,{
     address <- input$start
@@ -68,49 +97,6 @@ shinyServer(function(input, output) {
     names(locations) <- c("lat", "lon", "location_type", "formatted")
     return (cbind(locations$lon,locations$lat))
   })
-
-  
-  showRoutine <- function(lng,lat) {
-    leafletProxy("map") %>% addPolylines(lng, lat)
-  }
-  
-  
-  
-  output$ui <- renderUI({
-    if (is.null(input$input_type))
-      return()
-    
-    # Depending on input$input_type, we'll generate a different
-    # UI component and send it to the client.
-    switch(input$type,
-           "Ending Destination" = textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
-           "Furthest Distance" = sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5)
-    )
-    
-  })  
-  #Update button
-  observe({
-    if(input$type == "Ending Destination"){
-      leafletProxy("map") %>% clearShapes()
-      event <- Find.Path(geocode(input$start),input$tree,input$slope,
-                         input$foutain,input$restroom,input$width,Nodes,Segments,
-                         Original.Segments,NA,geocode(input$stop),Run.Back)
-    }else if(input$type == "Furthest Distance")
-      {
-      leafletProxy("map") %>% clearShapes()
-      event <- Find.Path(geocode(input$start),input$tree,input$slope,
-                         input$foutain,input$restroom,input$width,Nodes,Segments,
-                         Original.Segments,input$distance,NA,Run.Back)
-    }
-    
-    
-    
-    isolate({
-      showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
-                  lat=as.vector(event$Intersection.Go$Latitude))
-    })
-  })
-  
   
   # Create map
   output$map <- renderLeaflet({
