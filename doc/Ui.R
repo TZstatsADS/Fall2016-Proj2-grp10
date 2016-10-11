@@ -41,22 +41,25 @@ shinyUI(
                              
                              h2("Jogger's path"),
                              textInput("start",label='Where you start?',value = "columbia university, new york"),
-                             textInput("stop",label='Where you stop?',value = "times square, new york"),
-                             checkboxInput("return", label = "Same returning route"),
+                             
+                             radioButtons("end_dis", label = h5("Please choose ending destination or furthest distance."),
+                                          choices = list("End" = 1, "distance" = 2),selected = 1),
+                             textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
+                             sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
+                    
+                             h5("Return using original path."),
+                             checkboxInput("return", label = "Yes"),
                              
                              #changed layout to match input of code 
-                             sliderInput("distance", label = "Distance: ", min = 0, max = 15, value = 7.5),
-                             sliderInput("tree", "Tree:", min=0, max=100, value=50),
+                             sliderInput("tree", "Tree:", min=0, max=10, value=5),
                              sliderInput("slope", label = "Slope", min=0, max=10, value=5),
                              sliderInput("foutain", label = "Drinking Foutain: ", min=0, max=10, value=5),
                              sliderInput("restroom", label = "Restroom", min=0, max=10, value=5),
+                             sliderInput("width", label = "Sidewalk Width", min = 0, max = 10, value = 5),
                              
-                             submitButton("Update"),
+                             submitButton("Update")
                              # if we need to add some initial plot here
-                             hr()
-                             
-                             # plotOutput(),
-                             # plotOutput()
+
                ),
                ## where our data come from and copyright?
                tags$div(id="cite",
@@ -87,7 +90,7 @@ shinyUI(
                              numericInput("maxScore", "Max score", min=0, max=100, value=100)
                       )
                     ),
-                    tags$p('to add some other plots here!')
+                    verbatimTextOutput("path_condition")
                     # show the conditions here:
                     #DT::dataTableOutput("ziptable")
            )
