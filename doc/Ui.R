@@ -12,7 +12,10 @@ vars <- c(
 shinyUI(
   
   
-  navbarPage("Jogger", id="nav",
+  navbarPage(tags$img(tags$span("Jogger",class='edit'),src='https://maxcdn.icons8.com/Share/icon/Animals//running_rabbit1600.png',
+                      align = 'left',height = 40, width = 40,class = 'fixed'
+                      ), 
+             id="nav",
              
              tabPanel(tags$em("Jogger's map"),
                       div(class="outer",
@@ -55,8 +58,8 @@ shinyUI(
                           )
                       )
              ),
-             
              tabPanel(tags$em("Path conditions"),
+                      tags$div(class='beauty',
                       fluidRow(
                         column(3,
                                selectInput("states", "States", choices = c('a','b'), selected = 'a', multiple=TRUE)
@@ -78,9 +81,10 @@ shinyUI(
                                numericInput("maxScore", "Max score", min=0, max=100, value=100)
                         )
                       ),
-                      hr()
+                      tags$p('to add some other plots here!')
                       # show the conditions here:
                       #DT::dataTableOutput("ziptable")
+                      )
              )
              
              #conditionalPanel("false", icon("crosshair"))
