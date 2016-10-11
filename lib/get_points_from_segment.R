@@ -25,18 +25,18 @@ get_points_from_segment = function(the_geom){
 
 
 
-# Usage:
-library(leaflet)
-blocks = fread('../output/blocks_Manhattan.csv')
-
-ind = sample(nrow(blocks), 1000)
-
-m <- leaflet() %>% addTiles()
-for(i in ind){
-  seg_points = get_points_from_segment(blocks$the_geom[i])
-  m = addPolylines(m, lng = seg_points$lon, lat = seg_points$lat,   opacity = 1)
-}
-m
+# # Usage:
+# library(leaflet)
+# blocks = fread('../output/blocks_Manhattan.csv')
+# 
+# ind = sample(nrow(blocks), 1000)
+# 
+# m <- leaflet() %>% addTiles()
+# for(i in ind){
+#   seg_points = get_points_from_segment(blocks$the_geom[i])
+#   m = addPolylines(m, lng = seg_points$lon, lat = seg_points$lat,   opacity = 1)
+# }
+# m
 
 
 
