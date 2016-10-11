@@ -68,16 +68,32 @@ shinyServer(function(input, output) {
     return (cbind(locations$lon,locations$lat))
   })
   
-  #######Currently working here
+  showRoutine <- function(lng,lat) {
+    leafletProxy("map") %>% addPolylines(lng, lat)
+  }
+  
   #Update button
-  output$action=reactive({
-    path <- Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)
+  observe({
+    if(input$end_dis == 1){
+      leafletProxy("map") %>% clearShapes()
+      event <- Find.Path(geocode(input$start),input$tree,input$slope,
+                         input$foutain,input$restroom,input$width,Nodes,Segments,
+                         NA,geocode(input$stop),Run.Back)
+    }else{
+      leafletProxy("map") %>% clearShapes()
+      event <- Find.Path(geocode(input$start),input$tree,input$slope,
+                         input$foutain,input$restroom,input$width,Nodes,Segments,
+                         input$distance,NA,Run.Back)
+    }
     
-    #put in code as input and output
-    #This line needs help
-    leafletProxy("map") %>% clearShapes() %>%
-      addPolylines(path$Edge$Longtitude1,path$Edge$Latitude1,path$Edge$Longtitude2,path$Edge$Latitude2)
+    
+    
+    isolate({
+      showRoutine(lng=as.vector(event$Intersection$Longtitude),
+                  lat=as.vector(event$Intersection$Latitude))
+    })
   })
+  
   
   # Create map
   output$map <- renderLeaflet({
