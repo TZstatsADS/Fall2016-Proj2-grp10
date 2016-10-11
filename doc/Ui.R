@@ -42,8 +42,8 @@ shinyUI(
                              h2("Jogger's path"),
                              textInput("start",label='Where you start?',value = "columbia university, new york"),
                              
-                             selectInput("input_type", "Please choose distance or ending location",
-                                         c("Ending Destination" =  1,"Furthest Distance" = 2, selected = 1)),
+                             selectInput("type", "Please choose distance or ending location",
+                                         c("Ending Destination","Furthest Distance")),
                              uiOutput("ui"),
                              
                     
