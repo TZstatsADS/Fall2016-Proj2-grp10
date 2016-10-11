@@ -68,30 +68,15 @@ shinyServer(function(input, output) {
     return (cbind(locations$lon,locations$lat))
   })
   
+  #######Currently working here
   #Update button
   output$action=reactive({
-    path <- Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)#put in code as input and output
-    pointList <- path$intersection
+    path <- Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)
     
-    var firstpolyline <- new L.Polyline(pointList, {
-      color: 'red',
-      weight: 3,
-      opacity: 0.5
-      
-    });
-    
-    firstpolyline.addTo(map);
-  })
-  
-  # Creates paths for map
-  observe({
-    leafletProxy("map") %>% clearGroup("overlays")
-    event <- input$map_marker_click
-    if (is.null(event))
-      return()
-    isolate({
-      show()(event$Length, event$Slope, event$Tree,event$Foutain)
-    })
+    #put in code as input and output
+    #This line needs help
+    leafletProxy("map") %>% clearShapes() %>%
+      addPolylines(path$Edge$Longtitude1,path$Edge$Latitude1,path$Edge$Longtitude2,path$Edge$Latitude2)
   })
   
   # Create map
