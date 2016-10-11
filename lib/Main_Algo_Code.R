@@ -26,11 +26,12 @@ Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segmen
   Path = Shortest(Segments,Nodes,Start.ID,End.ID,Run.Back)
   Edge.index = Path$edge.index
   Edge = Path$Path
-  Route = Path$Nodes
+  Route.Go = Path$Nodes.Go
+  Route.Back = Path$Nodes.Back
   EDGE = Original.Segments[Edge.index,]
   Length = GetLength(EDGE)
   Route.Score = sum(1/Edge$Distance)/nrow(Edge)
-  return(list(Intersection = Route, Edge = EDGE ,Length = Length, Score = Route.Score))
+  return(list(Intersection.Go = Route.Go, Intersection.Back = Route.Back,Edge = EDGE ,Length = Length, Score = Route.Score))
 }
 
 Example

@@ -78,7 +78,7 @@ Shortest<-function(New.Segments,U.Nodes,Start.ID,End.ID,Run.Back){
   Sequence.Back =as.numeric(lapply(SHORT.Back,function(x){names[x]})[[1]])
   Sequence = c(Sequence.Go,Sequence.Back[-1])
   }
-  return(list(Path = EDGE ,Nodes = Nodes[Sequence,1:2],edge.index =c(EDGE.Go,EDGE.Back[-1])))
+  return(list(Path = EDGE,edge.index =c(EDGE.Go,EDGE.Back[-1]),Nodes.Go = Nodes[Sequence.Go,1:2],Nodes.Back = Nodes[Sequence.Back,1:2]))
 }
 
 GetLength<-function(Edge){
