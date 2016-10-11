@@ -41,7 +41,7 @@ Segments.Score<-function(Segments,TP,SP,FP,RP,WP){ #TP:Tree SP:Slope FP:Fountain
 # # 
 # # 
 # leaflet()%>%addTiles()%>%addCircleMarkers(lng = Nodes[2057,1],lat = Nodes[2057,2])
-#  leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
+#leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
 # # A = which(Segments$Start == 2057)
 # B = which(Segments$End == 2057)
 # Segments1 = Segments[B,]
