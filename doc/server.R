@@ -67,11 +67,26 @@ shinyServer(function(input, output) {
     names(locations) <- c("lat", "lon", "location_type", "formatted")
     return (cbind(locations$lon,locations$lat))
   })
+
   
   showRoutine <- function(lng,lat) {
     leafletProxy("map") %>% addPolylines(lng, lat)
   }
   
+  
+  
+  output$ui <- renderUI({
+    if (is.null(input$input_type))
+      return()
+    
+    # Depending on input$input_type, we'll generate a different
+    # UI component and send it to the client.
+    switch(input$input_type,
+           1 =  textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
+           2 = sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5)
+    )
+    
+  })  
   #Update button
   observe({
     if(input$end_dis == 1){
