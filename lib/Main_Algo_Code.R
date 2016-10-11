@@ -18,7 +18,7 @@ Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segmen
     }
   Nodes<-Score.Nodes(Nodes,RP,FP)
   if(!is.na(Distance)){
-    End.Coord = GetNodes(Nodes,Start.Coord,Distance/2)
+    End.Coord = GetNodes(Nodes,Start.Coord,Distance)
     End.ID = End.Coord$ID
   }
   #Find Path
