@@ -2,6 +2,20 @@ input[type="number"] {
   max-width: 80%;
 }
 
+span.edit {
+  position:relative;
+  right: 18px;
+  left:5px;
+  bottom: 0px;
+  font-size:40px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-style: italic;
+  color:rgb(255,0,0);
+}
+img.fixed {
+  position:relative;
+  bottom:10px;
+}
 div.outer {
   position: fixed;
   top: 41px;
@@ -11,17 +25,26 @@ div.outer {
   overflow: hidden;
   padding: 0;
 }
-
+div.beauty{
+  background-image:url(http://motoki-y.sakura.ne.jp/kabegami/024/b.gif);
+  background-attachment: fixed
+  overflow: hidden;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  top:41px;
+  padding:0;
+}
 /* Customize fonts */
 body, label, input, button, select { 
   font-family: 'Helvetica Neue', Helvetica;
   font-weight: 200;
 }
-h1, h2, h3, h4 { font-weight: 400; }
+h1, h2, h3, h4 { font-weight: 400; color:#8B008B;}
 
 #controls {
   /* Appearance */
   background-color: white;
+  background-image:url('http://wallpaper.zone/img/2638838.jpg');
   padding: 0 20px 20px 20px;
   cursor: move;
   /* Fade out while not hovering */
