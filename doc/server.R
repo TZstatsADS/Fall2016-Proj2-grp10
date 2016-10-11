@@ -13,8 +13,6 @@ load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
 load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
 source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Function.R")
 source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Code.R")
-
-
 shinyServer(function(input, output) {
   # _____________________________________________API: geocode______________________________________________#
   #https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyC82ht4goSYy9M7Dp9tXc-vO9qxCoeF0jM'
@@ -53,10 +51,10 @@ shinyServer(function(input, output) {
     iconWidth = 25, iconHeight = 40
   )
   
-  showRoutine <- function(lng,lat) {
-    leafletProxy("map") %>% addPolylines(lng, lat)
+  showRoutine <- function(lng,lat,col) {
+    leafletProxy("map") %>% addPolylines(lng, lat, color = col)
   }
-
+?addPolylines
   # output$test<-renderPrint({
   #   str(input$start)
   # })
@@ -79,8 +77,16 @@ shinyServer(function(input, output) {
 
     isolate({
       showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
-                  lat=as.vector(event$Intersection.Go$Latitude))
+                  lat=as.vector(event$Intersection.Go$Latitude),
+                  col = "#FF0088")
     })
+    
+    isolate({
+      showRoutine(lng=as.vector(event$Intersection.Back$Longtitude),
+                  lat=as.vector(event$Intersection.Back$Latitude),
+                  col = "#5500FF")
+    })
+    
   })
 
   # Find point from input
