@@ -37,17 +37,18 @@ Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segmen
   return(list(Intersection.Go = Route.Go, Intersection.Back = Route.Back,Edge = EDGE ,Length = Length, Score = Route.Score))
 }
 
-Example
-TP = 10
-SP = 5
-RP = 10
-FP = 5
-WP = 10
-Start.Location = "Columbia University, New York"
-Distance = 3
-End.Location =  NA
-Run.Back = 1 #0 - same way back , 1- different way back
-Result = Find.Path(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segments,Distance,End.Location,Run.Back=1)
-EDGE = Result$Edge
-Intersections = Result$Intersection
+# Example
+# TP = 10
+# SP = 5
+# RP = 10
+# FP = 5
+# WP = 10
+# Start.Location = "Columbia University, New York"
+# Distance = NA
+# End.Location = "Times Square,New York"
+# Run.Back = 1 #0 - same way back , 1- different way back
+# Result = Find.Path(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segments,Distance,End.Location,Run.Back=1)
+# EDGE = Result$Edge
+# Result$Intersection.Go
+# Result$Intersection.Back
 
