@@ -38,4 +38,13 @@ Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord){
   return(list(Intersection = Route, Edge = Edge,Length = Length, Score = Route.Score))
 }
 
+
+#writing code to plot/transferring to server
 Find.Path(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord)
+x$Intersection
+
+m <- leaflet() %>%
+  addTiles()%>%
+  setView(lng = -73.96411, lat =40.807722, zoom=17 )
+
+  #currently writing: addPolylines(m,)
