@@ -3,10 +3,11 @@ library(geosphere)
 library(dplyr)
 library(igraph)
 library(ggmap)
-load("Nodes.RData")
-load("Segments.RData")
-load("Original.Segments.RData")
-source("Main_Algo_Function.R")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Nodes.RData")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
+source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Function.R")
+
 
 Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segments,Distance,End.Location,Run.Back){
   #Set StartID and EndID
