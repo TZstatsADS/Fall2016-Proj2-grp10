@@ -25,9 +25,9 @@ GetNodes<-function(Node,start,Distance){ #Node with coord and scores
 
 
 
-Segments.Score<-function(Segments,TP,SP,FP,RP){ #TP:Tree SP:Slope FP:Fountain RP:Restrooms 
+Segments.Score<-function(Segments,TP,SP,FP,RP,WP){ #TP:Tree SP:Slope FP:Fountain RP:Restrooms 
   SS<-function(seg){
-    return(TP*5*seg[8] + SP*exp(-seg[7]) + sign(seg[9])*FP+sign(seg[10])*RP) 
+    return(WP*seg[6] + TP*5*seg[8] + SP*exp(-seg[7]) + sign(seg[9])*FP+sign(seg[10])*RP) 
   }
   Score = apply(Segments,1,SS)
   Segments = cbind(Segments,1/Score)
@@ -40,11 +40,11 @@ Segments.Score<-function(Segments,TP,SP,FP,RP){ #TP:Tree SP:Slope FP:Fountain RP
 # library(leaflet)
 # # 
 # # 
-leaflet()%>%addTiles()%>%addCircleMarkers(lng = Nodes[2057,1],lat = Nodes[2057,2])
-leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
-A = which(Segments$Start == 2057)
-B = which(Segments$End == 2057)
-Segments1 = Segments[B,]
+# leaflet()%>%addTiles()%>%addCircleMarkers(lng = Nodes[2057,1],lat = Nodes[2057,2])
+# leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
+# A = which(Segments$Start == 2057)
+# B = which(Segments$End == 2057)
+# Segments1 = Segments[B,]
 
 
 Shortest<-function(New.Segments,U.Nodes,Start.ID,End.ID,Run.Back){
@@ -80,4 +80,13 @@ Shortest<-function(New.Segments,U.Nodes,Start.ID,End.ID,Run.Back){
   }
   return(list(Path = EDGE ,Nodes = Nodes[Sequence,1:2]))
 }
+
+GetLength<-function(Edge){
+  GL<-function(r){
+    return(distm(r[1:2],r[3:4],fun = distHaversine)[,1]/1000)
+  }
+  D = apply(Edge,1,GL)
+  return(sum(D))
+}
+
 

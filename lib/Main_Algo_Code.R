@@ -10,13 +10,17 @@ TP = 10
 SP = 5
 RP = 10
 FP = 5
+WP = 10
 Start.Coord = geocode("Columbia University, New York")
-Distance = 4
-End.Coord =  NA
+Distance = NA
+End.Coord =  geocode("Times Square, New York")
 Run.Back = 1 #0 - same way back , 1- different way back
-EDGE = Find.Path(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord,Run.Back=1)$Edge
+Result = Find.Path(Start.Coord,TP,SP,FP,RP,WP,Nodes,Segments,Distance,End.Coord,Run.Back=1)
+EDGE = Result$Edge
+Intersections = Result$Intersection
 
-Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord,Run.Back){
+
+Find.Path<-function(Start.Coord,TP,SP,FP,RP,WP,Nodes,Segments,Distance,End.Coord,Run.Back){
   #Set StartID and EndID
   Start.ID = Nearest.ID(Nodes,Start.Coord)
   if(length(End.Coord) == 2){End.ID = Nearest.ID(Nodes,End.Coord)}
@@ -26,12 +30,12 @@ Find.Path<-function(Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord,Ru
     End.ID = End.Coord$ID
   }
   #Find Path
-  Segments = Segments.Score(Segments,TP,SP,FP,RP)
+  Segments = Segments.Score(Segments,TP,SP,FP,RP,WP)
   Path = Shortest(Segments,Nodes,Start.ID,End.ID,Run.Back)
   Edge = Path$Path
   Route = Path$Nodes
-  Length = sum(Edge$Length)/1000
-  Route.Score = sum(1/Edge$Distance)/Length
+  Length = GetLength(Edge)
+  Route.Score = sum(1/Edge$Distance)/nrow(Edge)
   return(list(Intersection = Route, Edge = Edge,Length = Length, Score = Route.Score))
 }
 
