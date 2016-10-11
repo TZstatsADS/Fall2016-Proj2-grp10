@@ -42,11 +42,17 @@ shinyUI(
                              h2("Jogger's path"),
                              textInput("start",label='Where you start?',value = "columbia university, new york"),
                              
-                             selectInput("type", "Please choose distance or ending location",
-                                         c("Ending Destination","Furthest Distance")),
-                             uiOutput("ui"),
+                             # verbatimTextOutput("test"),
+                             radioButtons("end_dis", "Please choose ending location or distance",
+                                          c("end" = 1,"distance" = 2)),
+                             textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
+                             sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
                              
-                    
+                              
+                             
+          
+                             
+                             
                              h5("Return using original path."),
                              checkboxInput("return", label = "Yes"),
                              
