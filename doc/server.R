@@ -8,10 +8,11 @@ library(RJSONIO)
 library(plyr)
 library(ggplot2)
 library(plotly)
-load("Nodes.RData")
-load("Segments.RData")
-source("Main Algo Function.R")
-source("Main Algo Code.R")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Nodes.RData")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
+load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
+source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Function.R")
+source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Code.R")
 
 
 shinyServer(function(input, output) {
@@ -81,31 +82,32 @@ shinyServer(function(input, output) {
     
     # Depending on input$input_type, we'll generate a different
     # UI component and send it to the client.
-    switch(input$input_type,
-           1 =  textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
-           2 = sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5)
+    switch(input$type,
+           "Ending Destination" = textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
+           "Furthest Distance" = sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5)
     )
     
   })  
   #Update button
   observe({
-    if(input$end_dis == 1){
+    if(input$type == "Ending Destination"){
       leafletProxy("map") %>% clearShapes()
       event <- Find.Path(geocode(input$start),input$tree,input$slope,
                          input$foutain,input$restroom,input$width,Nodes,Segments,
-                         NA,geocode(input$stop),Run.Back)
-    }else{
+                         Original.Segments,NA,geocode(input$stop),Run.Back)
+    }else if(input$type == "Furthest Distance")
+      {
       leafletProxy("map") %>% clearShapes()
       event <- Find.Path(geocode(input$start),input$tree,input$slope,
                          input$foutain,input$restroom,input$width,Nodes,Segments,
-                         input$distance,NA,Run.Back)
+                         Original.Segments,input$distance,NA,Run.Back)
     }
     
     
     
     isolate({
-      showRoutine(lng=as.vector(event$Intersection$Longtitude),
-                  lat=as.vector(event$Intersection$Latitude))
+      showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
+                  lat=as.vector(event$Intersection.Go$Latitude))
     })
   })
   
