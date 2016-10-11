@@ -26,8 +26,10 @@ Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segmen
   Path = Shortest(Segments,Nodes,Start.ID,End.ID,Run.Back)
   Edge.index = Path$edge.index
   Edge = Path$Path
-  Route.Go = Path$Nodes.Go
-  Route.Back = Path$Nodes.Back
+  colnames(Start.Coord) = c("Longtitude","Latitude")
+  colnames(End.Coord) = c("Longtitude","Latitude")
+  Route.Go = rbind(Start.Coord,Path$Nodes.Go,End.Coord)
+  Route.Back = rbind(End.Coord,Path$Nodes.Back,Start.Coord)
   EDGE = Original.Segments[Edge.index,]
   Length = GetLength(EDGE)
   Route.Score = sum(1/Edge$Distance)/nrow(Edge)
