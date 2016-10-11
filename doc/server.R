@@ -6,6 +6,8 @@ library(ggplot2)
 library(RCurl)
 library(RJSONIO)
 library(plyr)
+library(ggplot2)
+library(plotly)
 load("Nodes.RData")
 load("Segments.RData")
 source("Main Algo Function.R")
@@ -66,15 +68,22 @@ shinyServer(function(input, output) {
     return (cbind(locations$lon,locations$lat))
   })
   
-  #Buttom for calculation
+  #Update button
   output$action=reactive({
-    #TP:Tree SP:Slope FP:Fountain RP:Restrooms 
-    #Start.Coord,TP,SP,FP,RP,Nodes,Segments,Distance,End.Coord
-    Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)
-    #Catherine: this is partly done, I need to import the dataset for the 
+    path <- Find.Path(points_start,input$tree,input$slope,input$foutain,Nodes,Segments,input$distance,points_end)#put in code as input and output
+    pointList <- path$intersection
+    
+    var firstpolyline <- new L.Polyline(pointList, {
+      color: 'red',
+      weight: 3,
+      opacity: 0.5
+      
+    });
+    
+    firstpolyline.addTo(map);
   })
   
-  # When user clicks on segment, information will appear
+  # Creates paths for map
   observe({
     leafletProxy("map") %>% clearGroup("overlays")
     event <- input$map_marker_click
@@ -97,6 +106,32 @@ shinyServer(function(input, output) {
       addMarkers(data = points_end(),icon=end) 
 
   })
+  
+  
+  #_____________________________________________Factor Exploration___________________________________________#
+
+  #need help
+  datasetInput <- reactive({
+    switch(input$dataset,
+           "Legnth" = Segments$Length,
+           "Slope" = Segments$Slope,
+           "Tree" = Segments$Tree,
+           "Drink Fountain" = Segments$Fountain,
+           "Toliet" = Segments$Restroom)
+  })
+  
+  output$summary <- renderPrint({
+    summary(Segments[5:11])
+  })
+  
+  output$distribution <- renderPlotly({
+    plot_ly(x = datasetInput(), type = "histogram") 
+    #plot_ly(x = Segments$Tree, type = "histogram") 
+  })
+  
+  output$table <- DT::renderDataTable(DT::datatable({
+    Segments[5:11]
+  }))
   
 }
 )
