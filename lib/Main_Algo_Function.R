@@ -41,8 +41,8 @@ Segments.Score<-function(Segments,TP,SP,FP,RP,WP){ #TP:Tree SP:Slope FP:Fountain
 # # 
 # # 
 # leaflet()%>%addTiles()%>%addCircleMarkers(lng = Nodes[2057,1],lat = Nodes[2057,2])
-# leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
-# A = which(Segments$Start == 2057)
+#  leaflet()%>%addTiles()%>%addCircleMarkers(lng = EDGE[,1],lat = EDGE[,2])
+# # A = which(Segments$Start == 2057)
 # B = which(Segments$End == 2057)
 # Segments1 = Segments[B,]
 
@@ -78,7 +78,7 @@ Shortest<-function(New.Segments,U.Nodes,Start.ID,End.ID,Run.Back){
   Sequence.Back =as.numeric(lapply(SHORT.Back,function(x){names[x]})[[1]])
   Sequence = c(Sequence.Go,Sequence.Back[-1])
   }
-  return(list(Path = EDGE ,Nodes = Nodes[Sequence,1:2]))
+  return(list(Path = EDGE ,Nodes = Nodes[Sequence,1:2],edge.index =c(EDGE.Go,EDGE.Back[-1])))
 }
 
 GetLength<-function(Edge){
