@@ -20,6 +20,7 @@ Find.Path<-function(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segmen
   if(!is.na(Distance)){
     End.Coord = GetNodes(Nodes,Start.Coord,Distance)
     End.ID = End.Coord$ID
+    End.Coord = End.Coord[,1:2]
   }
   #Find Path
   Segments = Segments.Score(Segments,TP,SP,FP,RP,WP)
@@ -43,8 +44,8 @@ RP = 10
 FP = 5
 WP = 10
 Start.Location = "Columbia University, New York"
-Distance = NA
-End.Location =  "Times Square, New York"
+Distance = 3
+End.Location =  NA
 Run.Back = 1 #0 - same way back , 1- different way back
 Result = Find.Path(Start.Location,TP,SP,FP,RP,WP,Nodes,Segments,Original.Segments,Distance,End.Location,Run.Back=1)
 EDGE = Result$Edge
