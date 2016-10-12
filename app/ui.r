@@ -73,9 +73,9 @@ shinyUI(
                              width = 330, height = "auto",
                              
                              h2("Path Information"),
-                             h4("The following is detailed information on your path."),
+                             h4("The following is detailed information on your path.",class='htrims'),
                              
-                             h4("To view in greater detail, please select the following:"),
+                             h4("To view in greater detail, please select the following:",class='htrims'),
                              checkboxInput("RP_layer","Restroom"),
                              checkboxInput("FO_layer", "Fountain"),
                              
@@ -102,9 +102,9 @@ shinyUI(
                                       width = 330, height = "auto",
                                       
                                       h2("Path Information"),
-                                      h4("The following is detailed information on your path."),
+                                      h4("The following is detailed information on your path.",class='htrims'),
                                       
-                                      h4("To view in greater detail, please select the following:"),
+                                      h4("To view in greater detail, please select the following:",class='htrims'),
                                       checkboxInput("SP_TR", "Slope and Trees"),
                                       numericInput("tree_pre", label = "   Trees:", min=1, max=100, value=50),
                                       numericInput("slope_pre", label = "   Flatness:", min=1, max=100, value=50),
@@ -148,13 +148,13 @@ shinyUI(
                     tags$hr(),
                     tags$h2('About Our App',class='trims'),
                     tags$p("This application is designed for New York joggers to explore their
-                           jogging path. Itâs based on New York Open Data and allows users to 
+                           jogging path. It's based on New York Open Data and allows users to 
                            customize their preferences on trees, slopes, fountains and restrooms. 
                            Furthermore, after input start location, the application has two modes
                            for exploration process. One is to input the exact destination and the
                            other one is to input the expect distance between destination and start 
                            location. The app will automatically show the optimal jogging path according 
-                           to userâs preference along with the detail information of this path.",class='trimsP'),
+                           to user's preference along with the detail information of this path.",class='trimsP'),
                     tags$br(),
                     tags$br(),
                     tags$br(),
