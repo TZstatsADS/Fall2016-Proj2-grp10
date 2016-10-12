@@ -120,19 +120,13 @@ shinyServer(function(input, output) {
     output$summary_text <- renderPrint(
       paste(round(event$Length),"kilometers")
     )
-  })
   
   #Display bathroom and fountains on path only
-  observe({
     if(input$RP_layer || input$FO_layer){
 
       leafletProxy("map") %>% clearMarkers() %>%
         addMarkers(data = points_start(),icon=start) %>%
         addMarkers(data = points_end(),icon=end)
-      event <- Find.Path(input$start,input$tree,input$slope,
-                         input$foutain,input$restroom,input$width,Nodes,Segments,
-                         Original.Segments,
-                         NA,input$stop,input$return)
 
       rl<-cbind(event$Edge$Longtitude1[which(event$Edge$Restroom>0)],
                 event$Edge$Latitude1[which(event$Edge$Restroom>0)],
