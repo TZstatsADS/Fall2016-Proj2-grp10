@@ -25,22 +25,22 @@ The **learning goals** for this project is
 - shiny app/shiny server
 	
 + Contribution statement:
-	+ Zhao, Catherine Amy
-		- Plotting path onto map
-		- Compilation/debug of code from different people
-		- Filtering data to Manhattan
-	+ Saez, Alexandre
-		- Created database of street segments
-		- Plotted density of trees and slope onto graph(look on second tab)
-		- Debug of final app
 	+ An, Huilong 
 		- Changed custom css
 		- Build original ui interface
-		- Design of app
+		- Design of app	
 	+ Li, Rong
 		- Algorithm for calculating shortest path
 		- Cleaning the pre-processed data
 		- Presentor
+	+ Saez, Alexandre
+		- Created database of street segments
+		- Plotted density of trees and slope onto graph(look on second tab)
+		- Debug of final app
+	+ Zhao, Catherine Amy
+		- Plotting path onto map
+		- Compilation/debug of code from different people
+		- Filtering data to Manhattan
 	+ Zhu, Ying
 		- Plotting path onto map
 		- Filtering data to Manhattan
