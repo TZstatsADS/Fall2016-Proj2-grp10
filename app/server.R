@@ -8,6 +8,7 @@ library(RJSONIO)
 library(plyr)
 library(ggplot2)
 library(plotly)
+library(data.table)
 load("../output/Nodes.RData")
 load("../output/Segments.RData")
 load("../output/Original.Segments.RData")
@@ -235,8 +236,7 @@ shinyServer(function(input, output) {
     filter(!is.na(lon) & !is.na(lat))
   
   observe({
-    leafletProxy("map2") %>% clearMarkers()%>%
-      addMarkers(data = points_start(),icon=start) %>% addMarkers(data = points_end(),icon=end)
+    leafletProxy("map2") %>% clearMarkers()
     if (input$RP_layer_all)
       leafletProxy("map2") %>% addMarkers(lng = restrooms$LNG, lat = restrooms$LAT, icon = toilet_icon)
     if (input$FO_layer_all)
@@ -255,20 +255,26 @@ shinyServer(function(input, output) {
   colors = colorRamp(c("red", "black", "green"))
   
   observe({
-    score = input$tree_pre*(blocks$tree_dens)  +  input$slope_pre*(-blocks$slope)
-    score = score[update_ind()]
-    score = rank(score)
+    if(input$SP_TR){
+      score = input$tree_pre*(blocks$tree_dens)  +  input$slope_pre*(-blocks$slope)
+      score = score[update_ind()]
+      score = rank(score)
+      
+      leafletProxy("map2") %>% clearShapes()
+      k = 0
+      for(i in update_ind()){
+        k = k + 1
+        seg_points = get_points_from_segment(blocks$the_geom[i])
+        leafletProxy("map2") %>% addPolylines(lng = seg_points$lon, 
+                                              lat = seg_points$lat,   
+                                              col = rgb(colors(score[k]/max(score))/255),
+                                              weight = 3, 
+                                              opacity = 1)
+      }
     
-    leafletProxy("map2") %>% clearShapes()  
-    k = 0
-    for(i in update_ind()){
-      k = k + 1
-      seg_points = get_points_from_segment(blocks$the_geom[i])
-      leafletProxy("map2") %>% addPolylines(lng = seg_points$lon, 
-                                            lat = seg_points$lat,   
-                                            col = rgb(colors(score[k]/max(score))/255),
-                                            weight = 3, 
-                                            opacity = 1)
+    }
+    if(input$SP_TR == 0){
+      leafletProxy("map2") %>% clearShapes()
     }
     
   })
