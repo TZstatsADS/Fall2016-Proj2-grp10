@@ -25,26 +25,26 @@ The **learning goals** for this project is
 - shiny app/shiny server
 	
 + Contribution statement:
-	*Li, Rong:
-		- Algorithm for calculating shortest path
-		- Cleaning the pre-processed data
-		- Presentor
-	-Zhu, Ying:
-		- Plotting path onto map
-		- Filtering data to Manhattan
-		- Plotted 
 	+ Zhao, Catherine Amy
 		- Plotting path onto map
 		- Compilation/debug of code from different people
 		- Filtering data to Manhattan
 	+ Saez, Alexandre
-		- Created database of street segment
+		- Created database of street segments
 		- Plotted density of trees and slope onto graph(look on second tab)
 		- Debug of final app
 	+ An, Huilong 
 		- Changed custom css
 		- Build original ui interface
 		- Design of app
+	+ Li, Rong
+		- Algorithm for calculating shortest path
+		- Cleaning the pre-processed data
+		- Presentor
+	+ Zhu, Ying
+		- Plotting path onto map
+		- Filtering data to Manhattan
+		- Plotted restroom and fountain along path
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
