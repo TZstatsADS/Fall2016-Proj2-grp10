@@ -198,7 +198,7 @@ shinyServer(function(input, output) {
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
+      ) %>% setView(lng = -73.96965, lat =40.78486, zoom=14 ) %>%
      
       addMarkers(data = points_start(),icon=start) %>%
       addMarkers(data = points_end(),icon=end)} else{
@@ -206,7 +206,7 @@ shinyServer(function(input, output) {
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
+      ) %>% setView(lng = -73.96965, lat =40.78486, zoom=14 ) %>%
      
       addMarkers(data = points_start(),icon=start) 
       }
