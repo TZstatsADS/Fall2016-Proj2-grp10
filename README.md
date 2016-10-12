@@ -4,7 +4,7 @@
 Term: Fall 2016
 
 + Team 10
-+ Projec title: Lorem ipsum dolor sit amet
++ Projec title: Jogger
 + Team members
 	+ Li, Rong
 	+ Zhu, Ying
@@ -20,14 +20,34 @@ In this second project of Applied Data Science, we will carry out *Exploratory D
 + **After your finish your shiny app, please replace the screenshot below with one from your own app.**
 ```
 
-![screenshot](doc/screenshot.tiff)
+![screenshot](https://github.com/TZstatsADS/Fall2016-Proj2-grp10/blob/master/doc/screenshot.png)
 
 The **learning goals** for this project is 
 - business intelligence for data science
 - systems development/design life cycle
 - shiny app/shiny server
 	
-**Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
+**Contribution statement**: 
+	+ Li, Rong: 
+		- Algorithm for calculating shortest path
+		- Cleaning the pre-processed data
+		- Presentor
+	+ Zhu, Ying:
+		- Plotting path onto map
+		- Filtering data to Manhattan
+		- Plotted 
+	+ Zhao, Catherine Amy
+		- Plotting path onto map
+		- Compilation/debug of code from different people
+		- Filtering data to Manhattan
+	+ Saez, Alexandre
+		- Created database of street segment
+		- Plotted density of trees and slope onto graph(look on second tab)
+		- Debug of final app
+	+ An, Huilong 
+		- Changed custom css
+		- Build original ui interface
+		- Design of app
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
