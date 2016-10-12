@@ -62,12 +62,12 @@ shinyServer(function(input, output) {
   
   toilet_icon=makeIcon(
     iconUrl = "../data/toilet.png",
-    iconWidth = 25, iconHeight = 30
+    iconWidth = 30, iconHeight = 35
   )
   
   fountain_icon=makeIcon(
-    iconUrl = "../data/fountain.png",
-    iconWidth = 25, iconHeight = 30
+    iconUrl = "https://cdn1.iconfinder.com/data/icons/fitness-and-health-1/90/22-512.png",
+    iconWidth = 30, iconHeight = 30
   )
   
   
