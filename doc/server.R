@@ -51,10 +51,22 @@ shinyServer(function(input, output) {
     iconWidth = 25, iconHeight = 40
   )
   
+  restroom=makeIcon(
+    iconUrl = "https://maxcdn.icons8.com/office/PNG/80/Household/toilet-80.png",
+    iconWidth = 25, iconHeight = 30
+  )
+  
+  drink=makeIcon(
+    iconUrl = "https://maxcdn.icons8.com/Color/PNG/96/Travel/drinking_fountain-96.png",
+    iconWidth = 25, iconHeight = 30
+  )
+  
+  
+######Show the Best Routine######### 
   showRoutine <- function(lng,lat,col) {
     leafletProxy("map") %>% addPolylines(lng, lat, color = col)
   }
-?addPolylines
+
   # output$test<-renderPrint({
   #   str(input$start)
   # })
@@ -88,6 +100,60 @@ shinyServer(function(input, output) {
     })
     
   })
+######Show the variables---restroom in segement#####
+  
+showRestroom<-function(lng,lat,restroom){
+  leafletProxy("map") %>% addMarkers(lng,lat,icon=restroom)
+}
+showDrink<-function(lng,lat,drink){
+  leafletProxy("map") %>% addMarkers(lng,lat,icon=drink)
+  }  
+
+observe({
+  leafletProxy("map") %>% clearMarkers()
+  event <- Find.Path(input$start,input$tree,input$slope,
+                     input$foutain,input$restroom,input$width,Nodes,Segments,
+                     Original.Segments,
+                     NA,input$stop,input$return)
+  
+    rl<-cbind(event$Edge$Longtitude1[which(event$Edge$Restroom>0)],
+              event$Edge$Latitude1[which(event$Edge$Restroom>0)],
+              event$Edge$Longtitude2[which(event$Edge$Restroom>0)],
+              event$Edge$Latitude1[which(event$Edge$Restroom>0)]
+    )
+    dl<-cbind(event$Edge$Longtitude1[which(event$Edge$Fountain>0)],
+              event$Edge$Latitude1[which(event$Edge$Fountain>0)],
+              event$Edge$Longtitude2[which(event$Edge$Fountain>0)],
+              event$Edge$Latitude1[which(event$Edge$Fountain>0)]
+    )
+    n<-nrow(rl)
+    m<-nrow(dl)
+    rest_lat<-vector()
+    rest_lng<-vector()
+    drink_lat<-vector()
+    drink_lng<-vector()
+    for (i in 1:n){
+      rest_lng[i]<-mean(rl[i,1],mean(c(rl[i,1],rl[i,3])))
+      rest_lat[i]<-mean(rl[i,2],mean(c(rl[i,2],rl[i,4])))
+    }
+    for(i in 1:m){
+      drink_lng[i]<-mean(c(dl[i,1],dl[i,3]))
+      drink_lat[i]<-mean(c(dl[i,2],dl[i,4]))
+    }
+
+    isolate({
+      showRestroom(lng = rest_lng, lat = rest_lat, restroom = restroom)
+    })
+  
+    isolate({
+      showDrink(lng=drink_lng,lat=drink_lat,drink =drink)
+    })  
+              })
+
+  
+
+
+
 
   # Find point from input
   points_start <- eventReactive(input$start,{
@@ -119,7 +185,7 @@ shinyServer(function(input, output) {
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
+      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=15 ) %>%
      
       addMarkers(data = points_start(),icon=start) 
       }
