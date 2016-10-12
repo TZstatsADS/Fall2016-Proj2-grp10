@@ -20,19 +20,19 @@ In this second project of Applied Data Science, we will carry out *Exploratory D
 + **After your finish your shiny app, please replace the screenshot below with one from your own app.**
 ```
 
-![screenshot](https://github.com/TZstatsADS/Fall2016-Proj2-grp10/blob/master/doc/screenshot.png)
+![alt tag](./doc/screenshot.png)
 
 The **learning goals** for this project is 
 - business intelligence for data science
 - systems development/design life cycle
 - shiny app/shiny server
 	
-Contribution statement: 
-	+ Li, Rong: 
++ Contribution statement:
+	*Li, Rong:
 		- Algorithm for calculating shortest path
 		- Cleaning the pre-processed data
 		- Presentor
-	+ Zhu, Ying:
+	-Zhu, Ying:
 		- Plotting path onto map
 		- Filtering data to Manhattan
 		- Plotted 
