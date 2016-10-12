@@ -3,9 +3,9 @@ library(geosphere)
 library(dplyr)
 library(igraph)
 library(ggmap)
-# load("~/Desktop/Fall2016-Proj2-grp10-master/output/Nodes.RData")
-# load("~/Desktop/Fall2016-Proj2-grp10-master/output/Segments.RData")
-# load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
+load("../output/Nodes.RData")
+load("../output/Segments.RData")
+load("../output/Original.Segments.RData")
 source("../lib/Main_Algo_Function.R")
 
 
