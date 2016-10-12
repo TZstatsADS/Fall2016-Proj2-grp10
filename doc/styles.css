@@ -3,6 +3,12 @@ input[type="number"] {
 }
 
 
+.htrims{
+  font-size: 15px;
+  color:	#000000;
+}
+
+
 .trims{
   position:relative;
   bottom: 0px;
@@ -15,7 +21,7 @@ input[type="number"] {
 .trimsP{
   position:relative;
   bottom: 0px;
-  font-size:25px;
+  font-size:20px;
   font-family:Georgia;
   font-style: normal;
   color:	#000000;
@@ -117,4 +123,3 @@ h1, h2, h3, h4 { font-weight: 400; color:#8B008B;}
 .leaflet-container {
   background-color: white !important;
 }
-
