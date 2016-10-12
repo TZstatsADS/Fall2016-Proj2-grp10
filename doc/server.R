@@ -13,6 +13,11 @@ library(plotly)
 # load("~/Desktop/Fall2016-Proj2-grp10-master/output/Original.Segments.RData")
 # source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Function.R")
 # source("~/Desktop/Fall2016-Proj2-grp10-master/lib/Main_Algo_Code.R")
+blocks = fread('../output/blocks_Manhattan.csv')
+restrooms = fread('../data/restroom_coordinates.csv')
+fountains = fread('../data/drink_location.csv')
+
+
 shinyServer(function(input, output) {
   # _____________________________________________API: geocode______________________________________________#
   #https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyC82ht4goSYy9M7Dp9tXc-vO9qxCoeF0jM'
@@ -39,7 +44,9 @@ shinyServer(function(input, output) {
       return(c(NA,NA,NA,NA))
     }
   }
-  #____________________________________________MAP______________________________________________________#
+  
+  
+  #__________________________________ICON______________________________________________________#
   # make icon
   start <- makeIcon(
     iconUrl = "https://www.adiumxtras.com/images/pictures/super_mario_3d_icons_1_35820_8077_image_12514.png",
@@ -51,16 +58,19 @@ shinyServer(function(input, output) {
     iconWidth = 25, iconHeight = 40
   )
   
-  restroom=makeIcon(
+  toilet_icon=makeIcon(
     iconUrl = "https://maxcdn.icons8.com/office/PNG/80/Household/toilet-80.png",
     iconWidth = 25, iconHeight = 30
   )
   
-  drink=makeIcon(
+  fountain_icon=makeIcon(
     iconUrl = "https://maxcdn.icons8.com/Color/PNG/96/Travel/drinking_fountain-96.png",
     iconWidth = 25, iconHeight = 30
   )
   
+  
+  
+  #____________________________________________MAP______________________________________________________#
   
   
   #functions to create markers and polylines
@@ -69,18 +79,15 @@ shinyServer(function(input, output) {
   }
   
   showRestroom<-function(lng,lat,restroom){
-    leafletProxy("map") %>% addMarkers(lng,lat,icon = restroom)
+    leafletProxy("map") %>% addMarkers(lng,lat,icon = toilet_icon)
   }
+  
   showDrink<-function(lng,lat,drink){
-    leafletProxy("map") %>% addMarkers(lng,lat,icon = drink)
-  }  
-
-
+    leafletProxy("map") %>% addMarkers(lng,lat,icon = fountain_icon)
+  } 
   
-  
-  #Creating paths for map, updating what to view
+  #Creating paths for map
   observe({
-
     if(input$end_dis == 1){
       leafletProxy("map") %>% clearShapes()
       event <- Find.Path(input$start,input$tree,input$slope,
@@ -94,41 +101,29 @@ shinyServer(function(input, output) {
                          Original.Segments,
                          input$distance,NA,input$return)
     }
-
+    #inital run
     isolate({
       showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
                   lat=as.vector(event$Intersection.Go$Latitude),
                   col = "#FF0088")
     })
     
+    #return run
     isolate({
       showRoutine(lng=as.vector(event$Intersection.Back$Longtitude),
                   lat=as.vector(event$Intersection.Back$Latitude),
                   col = "#5500FF")
     })
     
-    # if(input$SP_TR == 1){
-    #   score = input$tree*(blocks$tree_dens)  +  input$slope*(-blocks$slope)
-    #   score = score[update_ind()]
-    #   score = rank(score)
-    #   
-    #   leafletProxy("map") %>% clearShapes()
-    #   k = 0
-    #   for(i in update_ind()){
-    #     k = k + 1
-    #     seg_points = get_points_from_segment(blocks$the_geom[i])
-    #     leafletProxy("map") %>% addPolylines(lng = seg_points$lon, 
-    #                                          lat = seg_points$lat,   
-    #                                          col = rgb(colors(score[k]/max(score))/255),
-    #                                          weight = 7, 
-    #                                          opacity = 1)
-    #     
-    #   }
-    # }
-    
-    
-    if(input$TR_layer || input$FO_layer){
-      
+    output$summary_text <- renderPrint(
+      paste("The total distance is ", event$Length,"kilometers.")
+    )
+  })
+  
+  #Display bathroom and fountains on path only
+  observe({
+    if(input$RP_layer || input$FO_layer){
+
       leafletProxy("map") %>% clearMarkers() %>%
         addMarkers(data = points_start(),icon=start) %>%
         addMarkers(data = points_end(),icon=end)
@@ -136,7 +131,7 @@ shinyServer(function(input, output) {
                          input$foutain,input$restroom,input$width,Nodes,Segments,
                          Original.Segments,
                          NA,input$stop,input$return)
-      
+
       rl<-cbind(event$Edge$Longtitude1[which(event$Edge$Restroom>0)],
                 event$Edge$Latitude1[which(event$Edge$Restroom>0)],
                 event$Edge$Longtitude2[which(event$Edge$Restroom>0)],
@@ -147,48 +142,43 @@ shinyServer(function(input, output) {
                 event$Edge$Longtitude2[which(event$Edge$Fountain>0)],
                 event$Edge$Latitude1[which(event$Edge$Fountain>0)]
       )
-      
-  
-      
-      
-      if(input$TR_layer == 1){
-        n<-nrow(rl) 
+
+      if(input$RP_layer == 1){
+        n<-nrow(rl)
         rest_lat<-vector()
         rest_lng<-vector()
-        
-        
+
+
         for (i in 1:n == 1){
           rest_lng[i]<-mean(rl[i,1],mean(c(rl[i,1],rl[i,3])))
           rest_lat[i]<-mean(rl[i,2],mean(c(rl[i,2],rl[i,4])))
         }
-        
+
         isolate({
           showRestroom(lng = rest_lng, lat = rest_lat, restroom = restroom)
         })
-        
+
       }
-      
-      
+
+
       if(input$FO_layer == 1){
         m<-nrow(dl)
         drink_lat<-vector()
         drink_lng<-vector()
-        
-        
+
+
         for(i in 1:m){
           drink_lng[i]<-mean(c(dl[i,1],dl[i,3]))
           drink_lat[i]<-mean(c(dl[i,2],dl[i,4]))
         }
-        
+
         isolate({
           showDrink(lng=drink_lng,lat=drink_lat,drink =drink)
-        }) 
+        })
       }
     }
 
   })
-
-  
   
   # Find point from input
   points_start <- eventReactive(input$start,{
@@ -224,33 +214,62 @@ shinyServer(function(input, output) {
      
       addMarkers(data = points_start(),icon=start) 
       }
-
   })
   
-  
+
   #_____________________________________________Factor Exploration___________________________________________#
 
-  datasetInput <- reactive({
-    switch(input$dataset,
-           "Legnth" = EDGE$Length,
-           "Slope" = EDGE$Slope,
-           "Tree" = EDGE$Tree,
-           "Drink Fountain" = EDGE$Fountain,
-           "Toliet" = EDGE$Restroom)
+  # Create map
+  output$map2 <- renderLeaflet({
+      leaflet() %>%
+        addTiles(
+          urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
+          attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
+        ) %>% setView(lng = -73.96411, lat =40.807722, zoom=14 )
+  })
+
+  #Display bathroom and fountains
+  fountains = fountains %>%
+    select(lon, lat) %>%
+    filter(!is.na(lon) & !is.na(lat))
+  
+  observe({
+    leafletProxy("map2") %>% clearMarkers()%>%
+      addMarkers(data = points_start(),icon=start) %>% addMarkers(data = points_end(),icon=end)
+    if (input$RP_layer_all)
+      leafletProxy("map2") %>% addMarkers(lng = restrooms$LNG, lat = restrooms$LAT, icon = toilet_icon)
+    if (input$FO_layer_all)
+      leafletProxy("map2") %>% addMarkers(lng = fountains$lon, lat = fountains$lat, icon = fountain_icon)
   })
   
-  output$summary <- renderPrint({
-    summary(EDGE[5:11])
+  update_ind = reactive({
+    bounds = input$map2_bounds
+    with(blocks, which( (start_lon<bounds$east | end_lon<bounds$east) &
+                          (start_lon>bounds$west | end_lon>bounds$west) &
+                          (start_lat>bounds$south | end_lat>bounds$south) &
+                          (start_lat<bounds$north | end_lat<bounds$north) ) )
   })
   
-  output$distribution <- renderPlotly({
-    plot_ly(x = datasetInput(), type = "histogram") 
-    #plot_ly(x = Segments$Tree, type = "histogram") 
+  #draw segments:
+  colors = colorRamp(c("red", "black", "green"))
+  
+  observe({
+    score = input$tree_pre*(blocks$tree_dens)  +  input$slope_pre*(-blocks$slope)
+    score = score[update_ind()]
+    score = rank(score)
+    
+    leafletProxy("map2") %>% clearShapes()  
+    k = 0
+    for(i in update_ind()){
+      k = k + 1
+      seg_points = get_points_from_segment(blocks$the_geom[i])
+      leafletProxy("map2") %>% addPolylines(lng = seg_points$lon, 
+                                            lat = seg_points$lat,   
+                                            col = rgb(colors(score[k]/max(score))/255),
+                                            weight = 3, 
+                                            opacity = 1)
+    }
+    
   })
-  
-  output$table <- DT::renderDataTable(DT::datatable({
-    EDGE[5:11]
-  }))
-  
-}
-)
+
+})
