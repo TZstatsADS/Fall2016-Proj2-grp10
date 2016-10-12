@@ -2,6 +2,52 @@ input[type="number"] {
   max-width: 80%;
 }
 
+
+.trims{
+  position:relative;
+  bottom: 0px;
+  font-size:35px;
+  font-family:Georgia;
+  font-style: normal;
+  color:	#000000;
+}
+
+.trimsP{
+  position:relative;
+  bottom: 0px;
+  font-size:25px;
+  font-family:Georgia;
+  font-style: normal;
+  color:	#000000;
+}
+
+ul.ulb {
+    list-style-type: none;
+}
+
+li.ulb {
+    margin-top: 10px;
+    float: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+span.forname {
+  position:relative;
+  right: 18px;
+  bottom: 0px;
+  font-size:20px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#000000	;
+}
+
+
+
+
+
 span.edit {
   position:relative;
   right: 18px;
@@ -12,6 +58,7 @@ span.edit {
   font-style: italic;
   color:rgb(255,0,0);
 }
+
 img.fixed {
   position:relative;
   bottom:10px;
@@ -26,11 +73,11 @@ div.outer {
   padding: 0;
 }
 div.beauty{
-  background-image:url(http://motoki-y.sakura.ne.jp/kabegami/024/b.gif);
+  background-image:url(http://www.vcube.com.my/wp-content/uploads/2016/08/Abstract-polygon-geometric-background.jpg);
   background-attachment: fixed
   overflow: hidden;
   background-size: 100% 100%;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   top:41px;
   padding:0;
 }
@@ -44,7 +91,7 @@ h1, h2, h3, h4 { font-weight: 400; color:#8B008B;}
 #controls {
   /* Appearance */
   background-color: white;
-  background-image:url('http://wallpaper.zone/img/2638838.jpg');
+  background-image:url('https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/29/294/294444/1-f.jpg?1420807091');
   padding: 0 20px 20px 20px;
   cursor: move;
   /* Fade out while not hovering */
@@ -70,3 +117,4 @@ h1, h2, h3, h4 { font-weight: 400; color:#8B008B;}
 .leaflet-container {
   background-color: white !important;
 }
+
