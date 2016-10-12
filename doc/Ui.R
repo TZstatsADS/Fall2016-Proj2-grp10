@@ -46,7 +46,7 @@ shinyUI(
                              radioButtons("end_dis", "Please choose ending location or distance",
                                           c("end" = 1,"distance" = 2)),
                              textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
-                             sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
+                             numericInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
                              
                               
                              
@@ -70,8 +70,27 @@ shinyUI(
                
                absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                              draggable = TRUE, top = 60, left = "auto", right = "auto", bottom = "auto",
-                             width = 330, height = "auto"
+                             width = 330, height = "auto",
+                             
+                             h2("Path Information"),
+                             h4("The following is detailed information on your path."),
+                             
+                             h4("To view in greater detail, please select the following:"),
+                             checkboxInput("SP_TR", "Slope and Tree"),
+                             numericInput("tree", "   Trees:", min=1, max=100, value=50),
+                             numericInput("slope", label = "   Flatness:", min=1, max=100, value=50),
+                             checkboxInput("TR_layer", "Restroom"),
+                             checkboxInput("FO_layer", "Foutain"),
+                             
+                             h4("\nStatistics about the current course:"),
+                             
+                             
+                             
+                             plotlyOutput("path_summary")
+                             
                ),
+               
+               
                ## where our data come from and copyright?
                tags$div(id="cite",
                         'Data compiled for ', tags$em('New York Opensource Data'), ' until 2016'
