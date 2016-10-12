@@ -11,9 +11,9 @@ ui <- bootstrapPage(
   tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
   leafletOutput("map", width = "100%", height = "100%"),
   absolutePanel(class = "panel panel-default", top = 10, right = 10,
-                h4("Select preferences"),
+                h4("Select preference:"),
                 sliderInput("tree", "   Trees:", min=1, max=100, value=50),
-                sliderInput("slope", label = "   Slope:", min=1, max=100, value=50)
+                sliderInput("slope", label = "   Flatness:", min=1, max=100, value=50)
   )
 )
 
