@@ -18,7 +18,7 @@ This application is designed for New York joggers to explore their jogging path.
 In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
 
 
-![alt tag](https://github.com/TZstatsADS/Fall2016-Proj2-grp10/blob/master/output/screenshot.png)
+![alt tag](https://github.com/TZstatsADS/Fall2016-Proj2-grp10/blob/master/output/Screen Shot 2016-10-12 at 3.20.16 PM.png)
 
 The **learning goals** for this project is 
 - business intelligence for data science
