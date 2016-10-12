@@ -13,6 +13,7 @@ Term: Fall 2016
 	+ An, Huilong
 	
 + Project summary: 
+This application is designed for New York joggers to explore their jogging path. It's based on New York Open Data and allows users to  customize their preferences on trees, slopes, fountains and restrooms. Furthermore, after input start location, the application has two modes for exploration process. One is to input the exact destination and the other one is to input the expect distance between destination and start location. The app will automatically show the optimal jogging path according  to user's preference along with the detail information of this path. 
 
 In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
 
