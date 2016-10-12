@@ -27,7 +27,7 @@ The **learning goals** for this project is
 - systems development/design life cycle
 - shiny app/shiny server
 	
-**Contribution statement**: 
+Contribution statement: 
 	+ Li, Rong: 
 		- Algorithm for calculating shortest path
 		- Cleaning the pre-processed data
