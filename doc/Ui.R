@@ -46,7 +46,7 @@ shinyUI(
                              radioButtons("end_dis", "Please choose ending location or distance",
                                           c("end" = 1,"distance" = 2)),
                              textInput("stop",label='Where you stop?(Optional)',value = "times square, new york"),
-                             sliderInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
+                             numericInput("distance", label = "Distance: ", min = 0, max = 10, value = 5),
                              
                               
                              
@@ -70,42 +70,32 @@ shinyUI(
                
                absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                              draggable = TRUE, top = 60, left = "auto", right = "auto", bottom = "auto",
-                             width = 330, height = "auto"
+                             width = 330, height = "auto",
+                             
+                             h2("Path Information"),
+                             h4("The following is detailed information on your path."),
+                             
+                             h4("To view in greater detail, please select the following:"),
+                             # radioButtons("SP_TR", choices = c("Slope and Tree" = 1)),
+                             # numericInput("tree", "   Trees:", min=1, max=100, value=50),
+                             # numericInput("slope", label = "   Flatness:", min=1, max=100, value=50),
+                             checkboxInput("TR_layer","Restroom"),
+                             checkboxInput("FO_layer", "Foutain"),
+                             
+                             submitButton("Update"),
+                             
+                             h4("\nStatistics about the current course:"),
+                             verbatimTextOutput("summary_text")
                ),
+               
+               
                ## where our data come from and copyright?
                tags$div(id="cite",
                         'Data compiled for ', tags$em('New York Opensource Data'), ' until 2016'
                )
            )
   ),
-  tabPanel(tags$em("Path conditions"),
-           tags$div(class='beauty',
-                    fluidRow(
-                      column(3,
-                             selectInput("states", "States", choices = c('a','b'), selected = 'a', multiple=TRUE)
-                      ),
-                      column(3,
-                             selectInput("input.states", "fasfas",choices = c('dasd','ff','sfaas'),selected = 'dasd',
-                                         multiple=TRUE)
-                      ),
-                      column(3,
-                             selectInput("input.states","asdadsa", choices = c('sda','dasd','ff'),selected = 'sda',multiple = TRUE
-                             )
-                      )
-                    ),
-                    fluidRow(
-                      column(1,
-                             numericInput("minScore", "Min score", min=0, max=100, value=0)
-                      ),
-                      column(1,
-                             numericInput("maxScore", "Max score", min=0, max=100, value=100)
-                      )
-                    ),
-                    verbatimTextOutput("path_condition")
-                    # show the conditions here:
-                    #DT::dataTableOutput("ziptable")
-           )
-  ),
+
   tabPanel(tags$em("Factor Exploration"),
            tags$div(class='beauty',
                     fluidRow(
@@ -126,6 +116,40 @@ shinyUI(
                     
                     DT::dataTableOutput("table")
            )
+  ),
+  
+  tabPanel(tags$em("About"),
+           tags$div(class='beauty',
+                    tags$h2("Our Team Members",class='trims'),
+                    tags$br(),
+                    tags$img(tags$ul( class = 'ulb',
+                                      tags$li(tags$span("Rong Li",class = 'forname'),class ='ulb'),
+                                      tags$li(tags$span('Alex Saez',class = 'forname'),class ='ulb'),
+                                      tags$li(tags$span('Catherine Zhao',class ='forname'),class ='ulb'),
+                                      tags$li(tags$span('Huilong An',class = 'forname'),class ='ulb'),
+                                      tags$li(tags$span('Ying Zhu',class ='forname'),class ='ulb'),
+                                      tags$br()
+                    ),
+                    src='http://orig04.deviantart.net/4c19/f/2013/358/c/f/coloured_sm3dw_character_icon_stamps_by_geno2925-d6z9hv6.png', width = 'AUTO',
+                    height = 'AUTO', class = 'fixed',align = 'center'),
+                    tags$br(),
+                    tags$hr(),
+                    tags$h2('About Our App',class='trims'),
+                    tags$p('Design best route for New York jogger based on their preference on route condition using NYC open data',class='trimsP'),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br(),
+                    tags$br()
+           )
+           #conditionalPanel("false", icon("crosshair"))
   )
   
   #conditionalPanel("false", icon("crosshair"))
