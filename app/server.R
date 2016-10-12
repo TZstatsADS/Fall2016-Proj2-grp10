@@ -118,7 +118,7 @@ shinyServer(function(input, output) {
     })
     
     output$summary_text <- renderPrint(
-      paste("The total distance is ", event$Length,"kilometers.")
+      paste(round(event$Length),"kilometers")
     )
   })
   

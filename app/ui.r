@@ -59,7 +59,7 @@ shinyUI(
                              #changed layout to match input of code 
                              numericInput("tree", "Tree:", min=0, max=10, value=5),
                              numericInput("slope", label = "Slope", min=0, max=10, value=5),
-                             numericInput("foutain", label = "Drinking Foutain: ", min=0, max=10, value=5),
+                             numericInput("foutain", label = "Drinking Fountain: ", min=0, max=10, value=5),
                              numericInput("restroom", label = "Restroom", min=0, max=10, value=5),
                              numericInput("width", label = "Sidewalk Width", min = 0, max = 10, value = 5),
                              
@@ -77,11 +77,11 @@ shinyUI(
                              
                              h4("To view in greater detail, please select the following:"),
                              checkboxInput("RP_layer","Restroom"),
-                             checkboxInput("FO_layer", "Foutain"),
+                             checkboxInput("FO_layer", "Fountain"),
                              
                              submitButton("Update"),
                              
-                             h4("\nStatistics about the current course:"),
+                             h4("\nEstimated distance of course:"),
                              verbatimTextOutput("summary_text")
                ),
  
