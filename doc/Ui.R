@@ -71,7 +71,7 @@ shinyUI(
                absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                              draggable = TRUE, top = 60, left = "auto", right = "auto", bottom = "auto",
                              width = 330, height = "auto"
-               )
+               ),
                ## where our data come from and copyright?
                tags$div(id="cite",
                         'Data compiled for ', tags$em('New York Opensource Data'), ' until 2016'
