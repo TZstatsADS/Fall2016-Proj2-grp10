@@ -62,12 +62,12 @@ shinyServer(function(input, output) {
   
   toilet_icon=makeIcon(
     iconUrl = "../data/toilet.png",
-    iconWidth = 30, iconHeight = 35
+    iconWidth = 25, iconHeight = 30
   )
   
   fountain_icon=makeIcon(
-    iconUrl = "https://cdn1.iconfinder.com/data/icons/fitness-and-health-1/90/22-512.png",
-    iconWidth = 30, iconHeight = 30
+    iconUrl = "../data/fountain.png",
+    iconWidth = 25, iconHeight = 30
   )
   
   
@@ -102,7 +102,9 @@ shinyServer(function(input, output) {
                          input$foutain,input$restroom,input$width,Nodes,Segments,
                          Original.Segments,
                          input$distance,NA,input$return)
+      leafletProxy("map") %>% addMarkers(event$End.Point$Longtitude,event$End.Point$Latitude, icon = end)
     }
+    
     #inital run
     isolate({
       showRoutine(lng=as.vector(event$Intersection.Go$Longtitude),
@@ -198,7 +200,7 @@ shinyServer(function(input, output) {
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96965, lat =40.78486, zoom=14 ) %>%
+      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
      
       addMarkers(data = points_start(),icon=start) %>%
       addMarkers(data = points_end(),icon=end)} else{
@@ -206,7 +208,7 @@ shinyServer(function(input, output) {
       addTiles(
         urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>% setView(lng = -73.96965, lat =40.78486, zoom=14 ) %>%
+      ) %>% setView(lng = -73.96411, lat =40.807722, zoom=17 ) %>%
      
       addMarkers(data = points_start(),icon=start) 
       }
