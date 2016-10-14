@@ -17,7 +17,7 @@ This application is designed for New York joggers to explore their jogging path.
 
 
 ### [See web app](http://54.187.176.193/ubuntu/Fall2016-Proj2-grp10/app/)
-\
+
 
 
 	
