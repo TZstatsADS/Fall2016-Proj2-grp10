@@ -15,15 +15,9 @@ Term: Fall 2016
 + Project summary: 
 This application is designed for New York joggers to explore their jogging path. It's based on New York Open Data and allows users to  customize their preferences on trees, slopes, fountains and restrooms. Furthermore, after input start location, the application has two modes for exploration process. One is to input the exact destination and the other one is to input the expect distance between destination and start location. The app will automatically show the optimal jogging path according  to user's preference along with the detail information of this path. 
 
-In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
 
+#### [See web app](http://54.187.176.193/ubuntu/Fall2016-Proj2-grp10/app/)
 
-![alt tag](https://github.com/TZstatsADS/Fall2016-Proj2-grp10/blob/master/output/Screen Shot 2016-10-12 at 3.20.16 PM.png)
-
-The **learning goals** for this project is 
-- business intelligence for data science
-- systems development/design life cycle
-- shiny app/shiny server
 	
 + Contribution statement:
 	+ An, Huilong 
@@ -36,8 +30,8 @@ The **learning goals** for this project is
 		- Presentor
 	+ Saez, Alexandre
 		- Created database of street segments
-		- Plotted density of trees and slope onto graph(look on second tab)
-		- Debug of final app
+		- Color-coding of streets according preferences ('Factor exploration' tab)
+		- Debugging of final app
 	+ Zhao, Catherine Amy
 		- Plotting path onto map
 		- Compilation/debug of code from different people
