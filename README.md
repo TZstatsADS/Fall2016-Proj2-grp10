@@ -4,7 +4,7 @@
 Term: Fall 2016
 
 + Team 10
-+ Projec title: Jogger
++ Projec title: Jogger's map
 + Team members
 	+ Li, Rong
 	+ Zhu, Ying
@@ -16,7 +16,7 @@ Term: Fall 2016
 This application is designed for New York joggers to explore their jogging path. It's based on New York Open Data and allows users to  customize their preferences on trees, slopes, fountains and restrooms. Furthermore, after input start location, the application has two modes for exploration process. One is to input the exact destination and the other one is to input the expect distance between destination and start location. The app will automatically show the optimal jogging path according  to user's preference along with the detail information of this path. 
 
 
-#### [See web app](http://54.187.176.193/ubuntu/Fall2016-Proj2-grp10/app/)
+### [See web app](http://54.187.176.193/ubuntu/Fall2016-Proj2-grp10/app/)
 
 	
 + Contribution statement:
